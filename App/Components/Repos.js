@@ -63,8 +63,8 @@ export default class Repos extends Component{
     let nextList = this.props.userInfo.public_repos;
     let pagina = this.state.page + 1;
     console.log(pagina);
-    if(nextList>30){
-      let nuevoResult = Math.ceil(nextList / 30);
+    if(nextList>50){
+      let nuevoResult = Math.ceil(nextList / 50);
       console.log(nuevoResult);
       this.setState({
         page:pagina
@@ -97,12 +97,12 @@ export default class Repos extends Component{
 
   }
   render(){
-    let next = (this.props.userInfo.public_repos>30)?(<View style={styles.rowContainer}>
+    let next = (this.props.userInfo.public_repos>50)?(<View style={styles.rowContainer}>
       <TouchableHighlight
         onPress={this.nextPage.bind(this)} underlayColor='rgba(0,0,0,0.3)'>
-        <Text style={{flex:1,alignSelf: 'stretch',marginLeft:10,marginRight:10,borderRadius:10,textAlign:'center',color:'white',backgroundColor:'skyblue',padding:10, fontSize:18,}}>{(Math.ceil(this.props.userInfo.public_repos / 30) > this.state.page)?'Siguiente':'Atras'}</Text>
+        <Text style={{flex:1,alignSelf: 'stretch',marginLeft:10,marginRight:10,borderRadius:10,textAlign:'center',color:'white',backgroundColor:'skyblue',padding:10, fontSize:18,}}>{(Math.ceil(this.props.userInfo.public_repos / 50) > this.state.page)?'Siguiente':'Atras'}</Text>
       </TouchableHighlight>
-    </View>):(<View style={styles.rowContainer}><Text style={styles.name}>_</Text></View>);
+    </View>):(<View style={styles.rowContainer}><Text style={styles.name}> </Text></View>);
 
     let repos = this.props.repos;
     let list = repos.map((item,index)=>{

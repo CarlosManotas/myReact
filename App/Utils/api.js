@@ -9,7 +9,7 @@ const api = {
       pageId=1;
     }
     username = username.toLowerCase().trim();
-    let url = `https://api.github.com/users/${username}/repos?page=${pageId}`;
+    let url = `https://api.github.com/users/${username}/repos?page=${pageId}&per_page=50`;
     return fetch(url).then((res) => res.json());
   },
   getNotes(username){

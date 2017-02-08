@@ -15,15 +15,33 @@ import api from '../Utils/api';
 
 import Dashboard from './Dashboard';
 
+import Auth0Lock from 'react-native-lock';
+const lock = new Auth0Lock({clientId: "DKaNFn9pD9faHiuZ54ShwtqQqkNLEfcM", domain: "userspace.auth0.com"});
+
 export default class Main extends Component {
 
   constructor(props){
     super(props);
     this.state = {
+      token: null,
       username : '',
       isLoading: false,
       error: false
     };
+  }
+  handleLogin(evet) {
+    lock.show({}, (err, profile, token) => {
+      //user has loggedIn, get user.space token
+      fetch("https://gateway.user.space/native/android",{
+        method:'POST',
+        headers: { "Authorization" : `Bearer ${token.idToken}`, "Content-Type" : "text/plain"},
+      }).then(result => result.json()).then(result => {
+        this.setState({
+          ...this.state,
+          token: result
+        })
+      })
+    });
   }
   handleChange(event) {
     this.setState({
@@ -48,7 +66,7 @@ export default class Main extends Component {
             title: "Bio: " + (res.name || 'Selecciona una Opcion'),
             component: Dashboard,
             index: 1,
-            passProps: {userInfo: res, navigator: this.props.navigator}
+            passProps: {userInfo: res, navigator: this.props.navigator, token: this.state.token}
           });
           this.setState({
             isLoading: false,
@@ -60,8 +78,7 @@ export default class Main extends Component {
   }
   render(){
     let messageError = (this.state.error!=='')?<Text style={styles.errorText}>{this.state.error}</Text>:<View></View>;
-    return(
-      <View style={styles.mainContainer}>
+    const searchInput = <View style={styles.mainContainer}>
         <Text style={styles.firstTex}>Buscar Usuarios de Github</Text>
         <TextInput
           placeholder=' Nombre'
@@ -79,8 +96,19 @@ export default class Main extends Component {
           size='large'
           style={{height:100}}>
         </ActivityIndicator>
-      </View>
-    );
+      </View>;
+
+    const result = this.state.token ? searchInput :
+      <View style={styles.mainContainer}>
+        <TouchableHighlight
+          style={styles.touchField}
+          underlayColor='#ddd'
+          onPress={this.handleLogin.bind(this)} >
+            <Text style={styles.secondTex}>Login</Text>
+        </TouchableHighlight>
+      </View>;
+
+    return result;
   }
 }
 

@@ -70,9 +70,9 @@ export default class Notas extends Component{
     this.setState({
       note:''
     })
-    api.addNote(this.props.userInfo.login, note)
+    api.addNote(this.props.userInfo.login, note, this.props.token)
       .then((data)=>{
-        api.getNotes(this.props.userInfo.login)
+        api.getNotes(this.props.userInfo.login, this.props.token)
           .then((data)=>{
             this.setState({
               dataSource: this.ds.cloneWithRows(data)
@@ -89,7 +89,7 @@ export default class Notas extends Component{
     return(
       <View style={styles.container}>
         <View style={styles.rowContainer}>
-          <Text>{rowData}</Text>
+          <Text>{rowData.note}</Text>
         </View>
         <View style={styles.separator}/>
       </View>

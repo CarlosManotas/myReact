@@ -49,13 +49,13 @@ export default class Dashboard extends Component {
       });
   }
   goToNotes(){
-    api.getNotes(this.props.userInfo.login)
-      .then((res)=>{
-        res=res||{};
+    api.getNotes(this.props.userInfo.login, this.props.token)
+      .then(res=>{
+        res=res||[];
         this.props.navigator.push({
           title: 'Notas',
           component: Notas,
-          passProps: {userInfo: this.props.userInfo,notes:res}
+          passProps: {userInfo: this.props.userInfo,notes:res, token: this.props.token}
         });
       })
 

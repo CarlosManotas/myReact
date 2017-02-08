@@ -45,9 +45,10 @@ export default class Main extends Component {
           })
         }else {
           this.props.navigator.push({
-            title: res.name || 'Selecciona una Opcion',
+            title: "Bio: " + (res.name || 'Selecciona una Opcion'),
             component: Dashboard,
-            passProps: {userInfo: res}
+            index: 1,
+            passProps: {userInfo: res, navigator: this.props.navigator}
           });
           this.setState({
             isLoading: false,

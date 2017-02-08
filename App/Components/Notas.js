@@ -12,7 +12,8 @@ import {
 
 var styles = StyleSheet.create({
   container:{
-    flexGrow:1
+    flexGrow:1,
+    backgroundColor: 'white'
   },
   button:{
     height:60,

@@ -10,13 +10,15 @@ import {
   Navigator
 } from 'react-native';
 
-import {Main, Repos, Dashboard, Notas, Profile} from './App/Components';
+import {Main, Repos, Dashboard, Notas, Profile, ViewWeb} from './App/Components';
 
 const routes = [
   { title: 'Title', component: Profile },
+  { title: 'Perfil', component: Profile },
   { title: 'Pagina', component: Repos },
   { title: 'Bio:', component: Dashboard },
   { title: 'Notas', component: Notas },
+  { title: 'Web View', component: ViewWeb },
   { title: 'Repositorios', component: Repos}
 ]
 

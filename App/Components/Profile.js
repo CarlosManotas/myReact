@@ -9,7 +9,8 @@ import {
 
 var styles = StyleSheet.create({
   container:{
-    flex:1
+    flex:1,
+    backgroundColor: 'white'
   },
   buttonText:{
     alignSelf:'center',
